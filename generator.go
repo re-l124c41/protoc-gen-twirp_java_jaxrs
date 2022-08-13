@@ -351,12 +351,6 @@ func (g *generator) generateServiceInterface(file *descriptorpb.FileDescriptorPr
         g.P(`  `, `@javax.ws.rs.Produces({"application/protobuf", "application/json"})`)
         g.P(`  `, outputType, ` `, methodName, `(`, inputType, ` request);`)
         g.P()
-        // add comment
-        g.P(`  `, `@javax.ws.rs.POST`)
-        g.P(`  `, `@javax.ws.rs.Path( "/`, strings.Title(methodName), `" )`)
-        g.P(`  `, `@javax.ws.rs.Consumes({"application/protobuf", "application/json"})`)
-        g.P(`  `, `@javax.ws.rs.Produces({"application/protobuf", "application/json"})`)
-        g.P(`  java.util.concurrent.Future<`, outputType, `> `, methodName, `(`, inputType, ` request, Integer retries);`)
     }
 
     g.P(`}`)
