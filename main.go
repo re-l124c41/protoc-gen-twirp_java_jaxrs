@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	data, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error reading input")
@@ -24,13 +25,13 @@ func main() {
 	}
 
 	g := newGenerator(req)
-
 	err = g.Generate()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error generating output: %s\n", err)
 		os.Exit(1)
 	}
 
+	g.Response.SupportedFeatures = proto.Uint64(uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL))
 	data, err = proto.Marshal(g.Response)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error marshaling output proto")
